@@ -1,0 +1,3 @@
+rstrip, removes copy of string without whitespace at the end, 0
+rstrip!, removes trailing whitespace and returning nil, 0
+puts, returns string with new line, 0
