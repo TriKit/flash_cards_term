@@ -12,6 +12,6 @@ class Card
   end
 
   def print_card
-    "front: #{@front}, back: #{@back}, point: #{@point}"
+    "front: #{@front}, back: #{@back}"
   end
 end

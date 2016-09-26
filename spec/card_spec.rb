@@ -9,6 +9,6 @@ RSpec.describe Card do
 
   it "prepares card to show" do
     card = Card.new('ruby', 'dynamic programming language')
-    expect(card.print_card).to eq("front: ruby, back: dynamic programming language, point: 0")
+    expect(card.print_card).to eq("front: ruby, back: dynamic programming language")
   end
 end
