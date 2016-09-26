@@ -55,7 +55,7 @@ while true
   when 'create'
     create_category(input[1])
     @carrent_category = input[1]
-    puts 'Category ' + "#{@carrent_category}".upcase.color(:mintcream) + ' created'
+    puts 'Category ' + @carrent_category.to_s.upcase.color(:mintcream) + ' created'
 
   when 'show'
     if check_category_name(input[1])
@@ -69,7 +69,7 @@ while true
     if check_category_name(input[1])
       create_category(input[1])
       @carrent_category = input[1]
-      puts 'Current category is ' + "#{@carrent_category}".upcase.color(:mintcream)
+      puts 'Current category is ' + @carrent_category.to_s.upcase.color(:mintcream)
       @category.show_cards
     else
       puts 'There no such category'.color(:red)
@@ -78,7 +78,7 @@ while true
   when 'delete'
     if check_category_name(input[1])
       @default_category.delete_category(input[1])
-      puts 'Category ' + "#{input[1]}" + 'deleted'
+      puts 'Category ' + input[1].to_s + 'deleted'
       show_categories
     else
       puts 'There no such category'.color(:red)
@@ -86,7 +86,7 @@ while true
 
   when 'save'
     @category.write_to_file(input[1])
-    puts 'Changes in ' + "#{input[1]}".upcase.color(:mintcream) + ' saved'
+    puts 'Changes in ' + input[1].to_s.upcase.color(:mintcream) + ' saved'
 
   # CARD
   when 'add'
@@ -94,14 +94,15 @@ while true
       card = Card.new(input[1], input[2])
       @category.add_card(card)
       puts @category.card_list.last.print_card
-      @category.write_to_file("#{@carrent_category}")
+      @category.write_to_file(@carrent_category.to_s)
     else
       puts "You can't add card without opening or creating category".color(:red)
     end
 
   when 'remove'
     @category.remove_card(input[1])
-    @category.write_to_file("#{@carrent_category}")
+    puts 'Card ' + input[1].to_s.upcase.color(:mintcream) + ' removed'
+    @category.write_to_file(@carrent_category.to_s)
 
   # GLOBAL
   when 'exit'
