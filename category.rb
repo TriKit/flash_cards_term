@@ -1,3 +1,4 @@
+# CATEGORY
 class Category
   attr_reader :card_list, :file_name
 
@@ -7,7 +8,7 @@ class Category
   end
 
   def create_category_file
-    unless File.exists?("./categories/#{@file_name}")
+    unless File.exist?("./categories/#{@file_name}")
       File.new("./categories/#{@file_name}", 'w')
     end
   end
@@ -18,7 +19,7 @@ class Category
 
   def read_file
     cards = File.readlines("./categories/#{@file_name}")
-    card = cards.each do |line|
+    cards.each do |line|
       tmp = line.split(/,\s*/)
       front = tmp[0]
       back  = tmp[1]
@@ -56,5 +57,4 @@ class Category
       puts 'There are no any cards yet'
     end
   end
-
 end

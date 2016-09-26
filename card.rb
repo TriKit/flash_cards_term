@@ -1,7 +1,8 @@
+# CARD
 class Card
   attr_accessor :front, :back, :point
 
-  def initialize(front, back, point=0)
+  def initialize(front, back, point = 0)
     @front = front
     @back = back
     @point = point

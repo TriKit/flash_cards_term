@@ -109,9 +109,8 @@ while true
   end
 end
 
-
-#check rstrip +
-#remove \n when read file +
-#parse name of card list +
-#choose active card list by name
-#save card_lists by command
+# check rstrip +
+# remove \n when read file +
+# parse name of card list +
+# choose active card list by name
+# save card_lists by command
