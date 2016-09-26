@@ -8,7 +8,7 @@ class Category
 
   def create_category_file
     unless File.exists?("./categories/#{@file_name}")
-      File.new("./categories/#{@file_name}", "w")
+      File.new("./categories/#{@file_name}", 'w')
     end
   end
 
@@ -42,7 +42,7 @@ class Category
   end
 
   def write_to_file(file_name)
-    File.open("./categories/#{file_name}.txt", "w") do |f|
+    File.open("./categories/#{file_name}.txt", 'w') do |f|
       if @card_list
         @card_list.each { |t| f.puts(t.line_to_file) }
       end
@@ -53,7 +53,7 @@ class Category
     if @card_list
       @card_list.each { |card| puts card.front }
     else
-      puts "There are no any cards yet"
+      puts 'There are no any cards yet'
     end
   end
 
