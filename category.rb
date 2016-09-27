@@ -43,10 +43,8 @@ class Category
   end
 
   def write_to_file(file_name)
-    File.open("./categories/#{file_name}.txt", 'w') do |f|
-      if @card_list
-        @card_list.each { |t| f.puts(t.line_to_file) }
-      end
+    File.open("./categories/#{file_name}.txt", 'w') do |f|      
+      @card_list.each { |t| f.puts(t.line_to_file) } if @card_list
     end
   end
 
