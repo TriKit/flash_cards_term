@@ -37,6 +37,12 @@ def check_category_name(category)
   Dir.entries('categories').include?("#{category}.txt")
 end
 
+def check_card_name(card_name)
+  @category.card_list.each do |card|
+    card.front == card_name
+  end
+end
+
 instruction
 show_categories
 
@@ -100,9 +106,13 @@ while true
     end
 
   when 'remove'
-    @category.remove_card(input[1])
-    puts 'Card ' + input[1].to_s.upcase.color(:mintcream) + ' removed'
-    @category.write_to_file(@carrent_category.to_s)
+    if check_card_name(input[1]) == true
+      @category.remove_card(input[1])
+      puts 'Card ' + input[1].to_s.upcase.color(:mintcream) + ' removed'
+      @category.write_to_file(@carrent_category.to_s)
+    else
+      puts 'There no such card'.color(:red)
+    end
 
   # GLOBAL
   when 'exit'
