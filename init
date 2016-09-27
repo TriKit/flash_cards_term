@@ -1,132 +1,23 @@
 #!/usr/bin/ruby
-
 require 'rainbow/ext/string'
-
 require_relative 'card'
 require_relative 'category'
-
-def instruction
-  puts '---------INSTRUCTION--------'.color(:orange)
-  puts 'All command arguments should be separated by comma'.color(:orange)
-  puts 'create, category'.color(:blue) + ' - creates txt file for category'.color(:yellow)
-  puts 'open, category'.color(:blue) + ' - opens txt file of category'.color(:yellow)
-  puts 'delete, category'.color(:blue) + ' - deletes category file'.color(:yellow)
-  puts 'save, category'.color(:blue) + ' - puts card to category file and saves changes'.color(:yellow)
-  puts 'show, category'.color(:blue) + ' - shows cards in category'.color(:yellow)
-  puts 'add, front, back'.color(:blue) + ' - creates card'.color(:yellow)
-  puts 'remove, card'.color(:blue) + ' - removes card'.color(:yellow)
-  puts 'exit'.color(:blue) + ' - exit'.color(:yellow)
-end
-
-def show_categories
-  puts '---------CATEGORIES---------'.color(:orange)
-  entries = Dir.entries('./categories')
-  entries.delete('.')
-  entries.delete('..')
-  entries.delete('test.txt')
-  entries.delete('default.txt')
-  entries.each { |f| puts f.split('.')[0].upcase.color(:green) }
-end
-
-def create_category(category)
-  @category = Category.new("#{category}.txt")
-  @category.read_file
-end
+require_relative 'command'
 
 def check_command(command)
-  commands = ['create', 'show', 'open', 'delete', 'save', 'add', 'remove', 'exit']
+  commands = %w(create show open delete save add remove exit instruction)
   commands.include?(command)
 end
 
-def check_category_name(category)
-  Dir.entries('categories').include?("#{category}.txt")
-end
-
-def check_card_name(card_name)
-  @category.card_list.each do |card|
-    card.front == card_name
-  end
-end
-
-instruction
-show_categories
-
-
 @default_category = Category.new('default.txt')
-@current_category = nil
+@default_category.instruction
+@default_category.show_categories
 
-while true
-  print 'Enter command: '.color(:forestgreen)
-  input = gets.split(/,\s*/)
-  input[-1] = input[-1].rstrip
+commands = []
 
-  if check_command(input[0])
-    case input[0]
-
-    # CATEGORY
-    when 'create'
-      create_category(input[1])
-      @carrent_category = input[1]
-      puts 'Category ' + @carrent_category.to_s.upcase.color(:mintcream) + ' created'
-
-    when 'show'
-      if check_category_name(input[1])
-        create_category(input[1])
-        @category.show_cards
-      else
-        puts 'There no such category'.color(:red)
-      end
-
-    when 'open'
-      if check_category_name(input[1])
-        create_category(input[1])
-        @carrent_category = input[1]
-        puts 'Current category is ' + @carrent_category.to_s.upcase.color(:mintcream)
-        @category.show_cards
-      else
-        puts 'There no such category'.color(:red)
-      end
-
-    when 'delete'
-      if check_category_name(input[1])
-        @default_category.delete_category(input[1])
-        puts 'Category ' + input[1].to_s + 'deleted'
-        show_categories
-      else
-        puts 'There no such category'.color(:red)
-      end
-
-    when 'save'
-      @category.write_to_file(input[1])
-      puts 'Changes in ' + input[1].to_s.upcase.color(:mintcream) + ' saved'
-
-    # CARD
-    when 'add'
-      if @category
-        card = Card.new(input[1], input[2])
-        @category.add_card(card)
-        puts @category.card_list.last.print_card
-        @category.write_to_file(@carrent_category.to_s)
-      else
-        puts "You can't add card without opening or creating category".color(:red)
-      end
-
-    when 'remove'
-      if check_card_name(input[1]) == true
-        @category.remove_card(input[1])
-        puts 'Card ' + input[1].to_s.upcase.color(:mintcream) + ' removed'
-        @category.write_to_file(@carrent_category.to_s)
-      else
-        puts 'There no such card'.color(:red)
-      end
-
-    # GLOBAL
-    when 'exit'
-      exit
-    end
-  else
-    puts "Command is invalid. Please try again".color(:red)
-  end
+while line = $stdin.gets
+  commands.push(Command.new(@default_category, line))
+  commands.last.execute
 end
 
 # check rstrip +

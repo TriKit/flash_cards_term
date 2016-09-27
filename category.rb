@@ -1,6 +1,8 @@
+require 'rainbow/ext/string'
+
 # CATEGORY
 class Category
-  attr_reader :card_list, :file_name
+  attr_accessor :card_list, :file_name
 
   def initialize(file_name)
     @file_name = file_name
@@ -9,7 +11,7 @@ class Category
 
   def create_category_file
     unless File.exist?("./categories/#{@file_name}")
-      File.new("./categories/#{@file_name}", 'w')
+      File.new("./categories/#{@file_name}.txt", 'w')
     end
   end
 
@@ -34,23 +36,58 @@ class Category
   end
 
   def remove_card(front)
-    @card_list.each do |card|      
-      @card_list.delete(card) if card.front == front
+    if @card_list
+      @card_list.each do |card|
+        if card.front == front
+          @card_list.delete(card)
+          puts 'Card ' + front.to_s.upcase.color(:mintcream) + ' removed'
+        else
+          puts 'There no such card'.color(:red)
+        end
+      end
+      @card_list
+    else
+      puts 'Category is empty'.color(:red)
     end
-    @card_list
   end
 
   def write_to_file(file_name)
-    File.open("./categories/#{file_name}.txt", 'w') do |f|
+    File.open("./categories/#{file_name}", 'w') do |f|
       @card_list.each { |t| f.puts(t.line_to_file) } if @card_list
     end
   end
 
-  def show_cards
+  def show_cards_front
     if @card_list
       @card_list.each { |card| puts card.front }
     else
       puts 'There are no any cards yet'
     end
   end
+
+  def instruction
+    puts '---------INSTRUCTION--------'.color(:orange)
+    puts 'All command arguments should be separated by comma'.color(:orange)
+    puts 'create, category'.color(:blue) + ' - creates txt file for category'.color(:yellow)
+    puts 'delete, category'.color(:blue) + ' - deletes category file'.color(:yellow)
+    puts 'show, category'.color(:blue) + ' - shows cards in category'.color(:yellow)
+    puts 'add, front, back, category'.color(:blue) + ' - creates card'.color(:yellow)
+    puts 'remove, card, category'.color(:blue) + ' - removes card'.color(:yellow)
+    puts 'exit'.color(:blue) + ' - exit'.color(:yellow)
+  end
+
+  def show_categories
+    puts '---------CATEGORIES---------'.color(:orange)
+    entries = Dir.entries('./categories')
+    entries.delete('.')
+    entries.delete('..')
+    entries.delete('test.txt')
+    entries.delete('default.txt')
+    entries.each { |f| puts f.split('.')[0].upcase.color(:green) }
+  end
+
+  def check_category_name(category)
+    Dir.entries('categories').include?("#{category}.txt")
+  end
+
 end
