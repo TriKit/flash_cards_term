@@ -34,16 +34,14 @@ class Category
   end
 
   def remove_card(front)
-    @card_list.each do |card|
-      if card.front == front
-        @card_list.delete(card)
-      end
+    @card_list.each do |card|      
+      @card_list.delete(card) if card.front == front
     end
     @card_list
   end
 
   def write_to_file(file_name)
-    File.open("./categories/#{file_name}.txt", 'w') do |f|      
+    File.open("./categories/#{file_name}.txt", 'w') do |f|
       @card_list.each { |t| f.puts(t.line_to_file) } if @card_list
     end
   end
