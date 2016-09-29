@@ -11,7 +11,7 @@ class Category
 
   def create_category_file
     unless File.exist?("./categories/#{@file_name}")
-      File.new("./categories/#{@file_name}.txt", 'w')
+      File.new("./categories/#{@file_name}", 'w')
     end
   end
 
@@ -85,9 +85,4 @@ class Category
     entries.delete('default.txt')
     entries.each { |f| puts f.split('.')[0].upcase.color(:green) }
   end
-
-  def check_category_name(category)
-    Dir.entries('categories').include?("#{category}.txt")
-  end
-
 end

@@ -1,2 +1,6 @@
 rstrip, removes copy of string without whitespace at the end, 0
 rstrip!, removes trailing whitespace and returning nil, 0
+shift, removes first element of array and returns it, 0
+pop, removes last element of array and returns it, 0
+unshift, prepends element to the front of array. opposite of shift method, 0
+push, push element to the end of array. opposite of pop method, 0

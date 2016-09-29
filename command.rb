@@ -1,4 +1,5 @@
 require 'rainbow/ext/string'
+require_relative './category'
 
 # COMMAND
 class Command
@@ -20,9 +21,9 @@ class Command
     send(@name, *@args)
   end
 
-  def check_category_name(category)
-    Dir.entries('categories').include?("#{category}.txt")
-  end
+  # def check_category_name(category)
+  #   Dir.entries('categories').include?("#{category}.txt")
+  # end
 
   private
 
@@ -39,7 +40,7 @@ class Command
 
   # delete category
   def delete(category)
-    if @category.check_category_name(category)
+    if Dir.entries('categories').include?("#{category}.txt")
       @category.delete_category(category)
       puts 'Category ' + category.to_s.upcase.color(:mintcream) + ' deleted'
       @category.show_categories
@@ -50,7 +51,7 @@ class Command
 
   # show front side of category cards
   def show(category)
-    if check_category_name(category)
+    if Dir.entries('categories').include?("#{category}.txt")
       create(category)
       @category.show_cards_front
     else
@@ -69,7 +70,7 @@ class Command
   end
 
   def remove(card_front, category)
-    if check_category_name(category)
+    if Dir.entries('categories').include?("#{category}.txt")
       create(category)
       @category.remove_card(card_front)
       @category.write_to_file("#{category}.txt")

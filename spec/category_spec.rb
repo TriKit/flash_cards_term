@@ -27,13 +27,13 @@ RSpec.describe Category do
       category = Category.new('test3.txt')
       card = Card.new('java', 'object oriented programming language')
       expect($stdout).to receive(:puts).with('java')
-      @category.delete_category('test3.txt')
+      @category.delete_category('test3')
     end
 
     it 'shows message if category is empty' do
       category = Category.new('test4.txt')
       expect($stdout).to receive(:puts).with('There are no any cards yet')
-      @category.delete_category('test4.txt')
+      @category.delete_category('test4')
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe Category do
       category = Category.new('test2.txt')
       category.remove_card('html')
       expect($stdout).to receive(:puts).with('Category is empty')
-      @category.delete_category('test2.txt')
+      @category.delete_category('test2')
     end
 
     it 'puts message if card not exist' do
@@ -55,16 +55,6 @@ RSpec.describe Category do
       @category.add_card(card)
       @category.remove_card('html')
       expect(@category.card_list).not_to include(card)
-    end
-  end
-
-  describe 'check category name' do
-    it 'returns true if category exists' do
-      expect(@category.check_category_name('test')).to be_truthy
-    end
-
-    it 'returns false if category not exists' do
-      expect(@category.check_category_name('unbelivable')).to be_falsy
     end
   end
 
