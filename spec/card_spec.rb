@@ -1,13 +1,27 @@
 require_relative '../card'
 
 RSpec.describe Card do
+  before(:each) do
+    @card = Card.new('ruby', 'dynamic programming language')
+  end
+
   it 'prepares a line to be written in to the file' do
-    card = Card.new('ruby', 'dynamic programming language')
-    expect(card.line_to_file).to eq('ruby, dynamic programming language, 0')
+    expect(@card.line_to_file).to eq('ruby, dynamic programming language, 0')
   end
 
   it 'prepares card to show' do
-    card = Card.new('ruby', 'dynamic programming language')
-    expect(card.print_card).to eq('front: ruby, back: dynamic programming language')
+    expect(@card.print_card).to eq('front: ruby, back: dynamic programming language')
+  end
+
+  describe 'set_point' do
+    it 'sets card point if point is valid' do
+      @card.set_point(2)
+      expect(@card.point).to eq(2)
+    end
+
+    it 'not sets card point if point is not valid' do
+      @card.set_point(4)
+      expect(@card.point).not_to eq(4)
+    end
   end
 end

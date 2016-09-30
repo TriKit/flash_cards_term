@@ -50,10 +50,20 @@ class Command
   end
 
   # show front side of category cards
-  def show(category)
+  def front(category)
     if Dir.entries('categories').include?("#{category}.txt")
       create(category)
-      @category.show_cards_front
+      @category.show_front
+    else
+      puts 'There no such category'.color(:red)
+    end
+  end
+
+  # show front and back side of category cards
+  def cards(category)
+    if Dir.entries('categories').include?("#{category}.txt")
+      create(category)
+      @category.show_front_and_back
     else
       puts 'There no such category'.color(:red)
     end
