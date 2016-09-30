@@ -57,9 +57,25 @@ class Category
     end
   end
 
-  def show_cards_front
+  def show_front
     if @card_list
       @card_list.each { |card| puts card.front }
+    else
+      puts 'There are no any cards yet'
+    end
+  end
+
+  def show_back
+    if @card_list
+      @card_list.each { |card| puts card.back }
+    else
+      puts 'There are no any cards yet'
+    end
+  end
+
+  def show_front_and_back
+    if @card_list
+      @card_list.each { |card| puts card.front.upcase.color(:mintcream) + ' ' + card.back }
     else
       puts 'There are no any cards yet'
     end
@@ -70,7 +86,8 @@ class Category
     puts 'All command arguments should be separated by comma'.color(:orange)
     puts 'create, category'.color(:blue) + ' - creates txt file for category'.color(:yellow)
     puts 'delete, category'.color(:blue) + ' - deletes category file'.color(:yellow)
-    puts 'show, category'.color(:blue) + ' - shows cards in category'.color(:yellow)
+    puts 'cards, category'.color(:blue) + ' - shows front and back side of card in category'.color(:yellow)
+    puts 'front, category'.color(:blue) + ' - shows front side of card in category'.color(:yellow)
     puts 'add, front, back, category'.color(:blue) + ' - creates card'.color(:yellow)
     puts 'remove, card, category'.color(:blue) + ' - removes card'.color(:yellow)
     puts 'exit'.color(:blue) + ' - exit'.color(:yellow)
