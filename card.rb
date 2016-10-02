@@ -20,7 +20,7 @@ class Card
 
   def set_point(point)
     point = point.to_i
-    if (0..3).include?(point)
+    if (0..3).cover?(point)
       @point = point
       puts "set point #{point}".color(:mintcream)
     else

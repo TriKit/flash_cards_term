@@ -4,3 +4,4 @@ shift, removes first element of array and returns it, 0
 pop, removes last element of array and returns it, 0
 unshift, prepends element to the front of array. opposite of shift method, 0
 push, push element to the end of array. opposite of pop method, 2
+some, some, 0

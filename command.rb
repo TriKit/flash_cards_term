@@ -19,6 +19,7 @@ class Command
 
   def execute
     send(@name, *@args)
+    #check_command
   end
 
   # def check_category_name(category)
@@ -71,11 +72,10 @@ class Command
 
   # CARD
   # add new card to category
-  def add(front, back, category)
+  def add(front, back)
     card = Card.new(front, back)
-    create(category)
     @category.add_card(card)
-    @category.write_to_file("#{category}.txt")
+    @category.write_to_file(@category.file_name)
     puts @category.card_list.last.print_card
   end
 

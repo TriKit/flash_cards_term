@@ -5,7 +5,7 @@ RSpec.describe Card do
     @card = Card.new('ruby', 'dynamic programming language')
   end
 
-  it 'prepares a line to be written in to the file' do
+  it 'prepares a line to be written to the file' do
     expect(@card.line_to_file).to eq('ruby, dynamic programming language, 0')
   end
 

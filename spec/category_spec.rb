@@ -4,7 +4,7 @@ require_relative '../card'
 
 RSpec.describe Category do
   before(:each) do
-    suppress_log_output
+    # suppress_log_output
     @card = Card.new('java', 'object oriented programming language')
     @category = Category.new('test.txt')
     @category.add_card(@card)
@@ -41,7 +41,7 @@ RSpec.describe Category do
     it 'puts message if category is empty' do
       category = Category.new('test2.txt')
       category.remove_card('html')
-      expect($stdout).to receive(:puts).with('Category is empty')
+      expect(@@last_message).to eq('Category is empty')
       @category.delete_category('test2')
     end
 

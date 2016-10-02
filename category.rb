@@ -36,7 +36,10 @@ class Category
   end
 
   def remove_card(front)
+    puts "11111111111"
+    p @card_list
     if @card_list
+      puts "222222222"
       @card_list.each do |card|
         if card.front == front
           @card_list.delete(card)
@@ -47,7 +50,8 @@ class Category
       end
       @card_list
     else
-      puts 'Category is empty'.color(:red)
+      puts "33333333333"
+      show_message('Category is empty') { |m| m.color(:red) }
     end
   end
 
@@ -91,6 +95,7 @@ class Category
     puts 'add, front, back, category'.color(:blue) + ' - creates card'.color(:yellow)
     puts 'remove, card, category'.color(:blue) + ' - removes card'.color(:yellow)
     puts 'exit'.color(:blue) + ' - exit'.color(:yellow)
+    puts 'instruction'.color(:blue) + ' - shows instruction'.color(:yellow)
   end
 
   def show_categories
