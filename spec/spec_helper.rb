@@ -99,7 +99,6 @@ RSpec.configure do |config|
 =end
 
   def show_message(message)
-    puts "**********"
     puts message
     @@last_message = message
   end

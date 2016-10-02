@@ -19,10 +19,10 @@ end
 @category = Category.new('default.txt')
 @category.instruction
 @category.show_categories
-
 commands = []
 
 while line = $stdin.gets
   commands.push(Command.new(@category, line))
+  commands.last.execute
   @category = commands.last.category
 end

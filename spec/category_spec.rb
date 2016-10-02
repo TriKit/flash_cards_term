@@ -26,13 +26,13 @@ RSpec.describe Category do
     it 'shows cards front if card_list is not empty' do
       category = Category.new('test3.txt')
       card = Card.new('java', 'object oriented programming language')
-      expect($stdout).to receive(:puts).with('java')
+      expect(@@last_message).to receive(:puts).with('java')
       @category.delete_category('test3')
     end
 
     it 'shows message if category is empty' do
       category = Category.new('test4.txt')
-      expect($stdout).to receive(:puts).with('There are no any cards yet')
+      expect(@@last_message).to eq('There are no any cards yet')
       @category.delete_category('test4')
     end
   end

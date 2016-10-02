@@ -30,7 +30,7 @@ RSpec.describe Command do
   end
 
   it 'removes card from category' do
-    command = Command.new(@category, 'remove, front, test')
+    command = Command.new(@category, 'remove, front')
     command.execute
     @category.read_file
     expect(@category.card_list.last.front).to eq('java')

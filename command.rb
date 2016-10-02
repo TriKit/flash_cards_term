@@ -60,8 +60,17 @@ class Command
     end
   end
 
+  def open(category)
+    if Dir.entries('categories').include?("#{category}.txt")
+      create(category)
+      puts 'Current category is ' + "#{category}".color(:green)
+    else
+      puts 'There no such category'.color(:red)
+    end
+  end
+
   # show front and back side of category cards
-  def cards(category)
+  def all(category)
     if Dir.entries('categories').include?("#{category}.txt")
       create(category)
       @category.show_front_and_back
@@ -79,11 +88,10 @@ class Command
     puts @category.card_list.last.print_card
   end
 
-  def remove(card_front, category)
-    if Dir.entries('categories').include?("#{category}.txt")
-      create(category)
+  def remove(card_front)
+    if Dir.entries('categories').include?(@category.file_name)
       @category.remove_card(card_front)
-      @category.write_to_file("#{category}.txt")
+      @category.write_to_file(@category.file_name)
     else
       puts 'There no such category'.color(:red)
     end
