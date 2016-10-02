@@ -5,7 +5,6 @@ require_relative 'category'
 require_relative 'command'
 
 def show_message(message)
-  puts "////////////"
   if block_given?
     message = yield(message)
   end
