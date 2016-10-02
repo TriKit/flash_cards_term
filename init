@@ -26,9 +26,3 @@ while line = $stdin.gets
   commands.push(Command.new(@category, line))
   @category = commands.last.category
 end
-
-
-# remove \n when read file +
-# parse name of card list +
-# choose active card list by name
-# save card_lists by command

@@ -23,7 +23,7 @@ RSpec.describe Command do
   end
 
   it 'adds card to category' do
-    command = Command.new(@category, 'add, front, back, test')
+    command = Command.new(@category, 'add, front, back')
     command.execute
     @category.read_file
     expect(@category.card_list.last.front).to eq('front')
