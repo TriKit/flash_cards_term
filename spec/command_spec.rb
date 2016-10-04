@@ -10,16 +10,51 @@ RSpec.describe Command do
     @category.read_file
   end
 
-  it 'creates category file' do
-    command = Command.new(@category, 'create, command_test')
+  it 'puts message if command is invalid' do
+    command = Command.new(@category, 'invalid command, command_test')
     command.execute
-    expect(Dir.entries('categories').include?("command_test.txt")).to be_truthy
+    expect(@@last_message).to eq('Invalid command. Please try again')
   end
 
-  it 'deletes category file' do
-    command = Command.new(@category, 'delete, command_test')
+  it 'creates category file' do
+    command = Command.new(@category, 'create, test_category')
     command.execute
-    expect(Dir.entries('categories').include?("command_test.txt")).to be_falsy
+    expect(Dir.entries('categories').include?("test_category.txt")).to be_truthy
+  end
+
+  describe 'delete' do
+    it 'deletes category file' do
+      command = Command.new(@category, 'delete, test_category')
+      command.execute
+      expect(Dir.entries('categories').include?("test_category.txt")).to be_falsy
+      expect(@@last_message).to eq('Category test_category deleted')
+    end
+
+    it 'shows message if category does not exist' do
+      command = Command.new(@category, 'delete, invalid_category')
+      command.execute
+      expect(@@last_message).to eq('There no such category')
+    end
+  end
+
+  describe 'open' do
+    it 'shows message if category does not exist' do
+      command = Command.new(@category, 'open, invalid_category')
+      command.execute
+      expect(@@last_message).to eq('There no such category')
+    end
+  end
+
+  describe 'front' do
+    pending '********'
+  end
+
+  describe 'back' do
+    pending '********'
+  end
+
+  describe 'all' do
+    pending '********'
   end
 
   it 'adds card to category' do

@@ -18,13 +18,13 @@ class Command
   end
 
   def execute
-    send(@name, *@args)
-    #check_command
+    commands = %w(create show open delete add remove exit instruction front back all)
+    if commands.include?(@name)
+      send(@name, *@args)
+    else
+      show_message('Invalid command. Please try again') { |m| m.color(:red) }
+    end
   end
-
-  # def check_category_name(category)
-  #   Dir.entries('categories').include?("#{category}.txt")
-  # end
 
   private
 
@@ -43,29 +43,34 @@ class Command
   def delete(category)
     if Dir.entries('categories').include?("#{category}.txt")
       @category.delete_category(category)
-      puts 'Category ' + category.to_s.upcase.color(:mintcream) + ' deleted'
+      show_message("Category #{category} deleted") { |m| m.color(:green) }
       @category.show_categories
     else
-      puts 'There no such category'.color(:red)
+      show_message('There no such category') { |m| m.color(:red) }
     end
   end
 
   # show front side of category cards
-  def front(category)
-    if Dir.entries('categories').include?("#{category}.txt")
-      create(category)
-      @category.show_front
-    else
-      puts 'There no such category'.color(:red)
-    end
+  def front
+    @category.show_front
+  end
+
+  # show back side of category cards
+  def back
+    @category.show_back
+  end
+
+  # show front and back side of category cards
+  def all(category)
+    @category.show_front_and_back
   end
 
   def open(category)
     if Dir.entries('categories').include?("#{category}.txt")
       create(category)
-      puts 'Current category is ' + "#{category}".color(:green)
+      show_message("Current category is #{category}") { |m| m.color(:green) }
     else
-      puts 'There no such category'.color(:red)
+      show_message('There no such category') { |m| m.color(:red) }
     end
   end
 
@@ -75,7 +80,7 @@ class Command
       create(category)
       @category.show_front_and_back
     else
-      puts 'There no such category'.color(:red)
+      show_message('There no such category') { |m| m.color(:red) }
     end
   end
 
@@ -89,12 +94,8 @@ class Command
   end
 
   def remove(card_front)
-    if Dir.entries('categories').include?(@category.file_name)
-      @category.remove_card(card_front)
-      @category.write_to_file(@category.file_name)
-    else
-      puts 'There no such category'.color(:red)
-    end
+    @category.remove_card(card_front)
+    @category.write_to_file(@category.file_name)
   end
 
   def set_point(card, point)
