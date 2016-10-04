@@ -97,12 +97,11 @@ class Command
     end
   end
 
-  def set_point(card, point, category)
-    create(category)
+  def set_point(card, point)
     @category.card_list.each do |c|
       if c.front == card
         c.set_point(point)
-        @category.write_to_file("#{category}.txt")
+        @category.write_to_file(@category.file_name)
       end
     end
   end

@@ -1,4 +1,5 @@
 require_relative '../card'
+require 'spec_helper'
 
 RSpec.describe Card do
   before(:each) do
@@ -21,7 +22,8 @@ RSpec.describe Card do
 
     it 'not sets card point if point is not valid' do
       @card.set_point(4)
-      expect(@card.point).not_to eq(4)
+      expect(@@last_message).to eq('Point should be 1, 2 or 3')
+      # expect(@card.point).not_to eq(4)
     end
   end
 end

@@ -22,9 +22,9 @@ class Card
     point = point.to_i
     if (0..3).cover?(point)
       @point = point
-      puts "set point #{point}".color(:mintcream)
+      show_message("set point #{point}") { |m| m.color(:mintcream) }
     else
-      puts 'Point should be 1, 2 or 3'
+      show_message('Point should be 1, 2 or 3') { |m| m.color(:red) }
     end
   end
 end
