@@ -5,16 +5,9 @@ require_relative 'category'
 require_relative 'command'
 
 def show_message(message)
-  if block_given?
-    message = yield(message)
-  end
+  message = yield(message) if block_given?
   puts message
 end
-
-# def check_command(command)
-#   commands = %w(create show open delete save add remove exit instruction)
-#   commands.include?(command)
-# end
 
 @category = Category.new('default.txt')
 @category.instruction
