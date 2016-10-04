@@ -17,21 +17,21 @@ RSpec.describe Command do
   end
 
   it 'creates category file' do
-    command = Command.new(@category, 'create, test_category')
+    command = Command.new(@category, 'create_category, test_category')
     command.execute
     expect(Dir.entries('categories').include?("test_category.txt")).to be_truthy
   end
 
   describe 'delete' do
     it 'deletes category file' do
-      command = Command.new(@category, 'delete, test_category')
+      command = Command.new(@category, 'delete_category, test_category')
       command.execute
       expect(Dir.entries('categories').include?("test_category.txt")).to be_falsy
       expect(@@last_message).to eq('Category test_category deleted')
     end
 
     it 'shows message if category does not exist' do
-      command = Command.new(@category, 'delete, invalid_category')
+      command = Command.new(@category, 'delete_category, invalid_category')
       command.execute
       expect(@@last_message).to eq('There no such category')
     end
@@ -72,16 +72,16 @@ RSpec.describe Command do
     end
   end
 
-  it 'adds card to category' do
-    command = Command.new(@category, 'add, front, back')
+  it 'creates card to category' do
+    command = Command.new(@category, 'create_card, front, back')
     command.execute
     @category.read_file
     expect(@category.card_list.last.front).to eq('front')
     expect(@@last_message).to eq('Card front added')
   end
 
-  it 'removes card from category' do
-    command = Command.new(@category, 'remove, front')
+  it 'deletes card from category' do
+    command = Command.new(@category, 'delete_card, front')
     command.execute
     @category.read_file
     expect(@category.card_list.last.front).to eq('java')

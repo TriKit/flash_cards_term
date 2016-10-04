@@ -18,7 +18,7 @@ class Command
   end
 
   def execute
-    commands = %w(create open delete add remove exit instruction front back all)
+    commands = %w(create_category open delete_category create_card delete_card exit instruction front back all)
     if commands.include?(@name)
       send(@name, *@args)
     else
@@ -34,13 +34,13 @@ class Command
 
   # CATEGORY
   # create new category
-  def create(category)
+  def create_category(category)
     @category = Category.new("#{category}.txt")
     @category.read_file
   end
 
   # delete category
-  def delete(category)
+  def delete_category(category)
     if Dir.entries('categories').include?("#{category}.txt")
       @category.delete_category(category)
       show_message("Category #{category} deleted") { |m| m.color(:green) }
@@ -88,14 +88,14 @@ class Command
 
   # CARD
   # add new card to category
-  def add(front, back)
+  def create_card(front, back)
     card = Card.new(front, back)
     @category.add_card(card)
     @category.write_to_file(@category.file_name)
     show_message("Card #{front} added") { |m| m.color(:green) }
   end
 
-  def remove(card_front)
+  def delete_card(card_front)
     @category.remove_card(card_front)
     @category.write_to_file(@category.file_name)
   end
