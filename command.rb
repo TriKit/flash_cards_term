@@ -18,7 +18,7 @@ class Command
   end
 
   def execute
-    commands = %w(create show open delete add remove exit instruction front back all)
+    commands = %w(create open delete add remove exit instruction front back all)
     if commands.include?(@name)
       send(@name, *@args)
     else
@@ -61,7 +61,7 @@ class Command
   end
 
   # show front and back side of category cards
-  def all(category)
+  def all
     @category.show_front_and_back
   end
 
@@ -69,16 +69,6 @@ class Command
     if Dir.entries('categories').include?("#{category}.txt")
       create(category)
       show_message("Current category is #{category}") { |m| m.color(:green) }
-    else
-      show_message('There no such category') { |m| m.color(:red) }
-    end
-  end
-
-  # show front and back side of category cards
-  def all(category)
-    if Dir.entries('categories').include?("#{category}.txt")
-      create(category)
-      @category.show_front_and_back
     else
       show_message('There no such category') { |m| m.color(:red) }
     end
