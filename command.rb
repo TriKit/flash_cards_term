@@ -52,17 +52,29 @@ class Command
 
   # show front side of category cards
   def front
-    @category.show_front
+    if @category.file_name == 'default.txt'
+      show_message('You should open category file') { |m| m.color(:red) }
+    else
+      @category.show_front
+    end
   end
 
   # show back side of category cards
   def back
-    @category.show_back
+    if @category.file_name == 'default.txt'
+      show_message('You should open category file') { |m| m.color(:red) }
+    else
+      @category.show_back
+    end
   end
 
   # show front and back side of category cards
   def all
-    @category.show_front_and_back
+    if @category.file_name == 'default.txt'
+      show_message('You should open category file') { |m| m.color(:red) }
+    else
+      @category.show_front_and_back
+    end
   end
 
   def open(category)

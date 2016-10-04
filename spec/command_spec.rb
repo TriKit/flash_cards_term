@@ -46,15 +46,30 @@ RSpec.describe Command do
   end
 
   describe 'front' do
-    pending '********'
+    it 'shows message if current category is default' do
+      category = Category.new('default.txt')
+      command = Command.new(category, 'front')
+      command.execute
+      expect(@@last_message).to eq('You should open category file')
+    end
   end
 
   describe 'back' do
-    pending '********'
+    it 'shows message if current category is default' do
+      category = Category.new('default.txt')
+      command = Command.new(category, 'back')
+      command.execute
+      expect(@@last_message).to eq('You should open category file')
+    end
   end
 
   describe 'all' do
-    pending '********'
+    it 'shows message if current category is default' do
+      category = Category.new('default.txt')
+      command = Command.new(category, 'all')
+      command.execute
+      expect(@@last_message).to eq('You should open category file')
+    end
   end
 
   it 'adds card to category' do
