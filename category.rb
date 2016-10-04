@@ -67,7 +67,7 @@ class Category
 
   def show_back
     if @card_list
-      @card_list.each { |card| puts card.back }
+      @card_list.each { |card| show_message(card.back) { |m| m.color(:red) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
