@@ -37,15 +37,13 @@ class Category
 
   def remove_card(front)
     if @card_list
-      @card_list.each do |card|
-        if card.front == front
-          @card_list.delete(card)
-          show_message("Card #{front} removed") { |m| m.color(:mintcream) }
-        else
-          show_message('There no such card') { |m| m.color(:red) }
-        end
+      @card_list.each { |card| @removed = card if card.front == front }
+      if !@removed.nil?
+        @card_list.delete(@removed)
+        show_message("Card #{front} removed") { |m| m.color(:green) }
+      else
+        show_message('There no such card') { |m| m.color(:red) }
       end
-      @card_list
     else
       show_message('Category is empty') { |m| m.color(:red) }
     end

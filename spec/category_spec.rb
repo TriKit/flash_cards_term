@@ -65,16 +65,16 @@ RSpec.describe Category do
   end
 
   describe 'remove_card' do
-    it 'puts message if category is empty' do
+    it 'shows message if category is empty' do
       category = Category.new('test2.txt')
       category.remove_card('html')
       expect(@@last_message).to eq('Category is empty')
       @category.delete_category('test2')
     end
 
-    it 'puts message if card not exist' do
+    it 'shows message if card not exist' do
       @category.remove_card('html')
-      expect($stdout).to receive(:puts).with('There no such card')
+      expect(@@last_message).to eq('There no such card')
     end
 
     it 'removes card from category if card exist' do
