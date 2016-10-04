@@ -50,6 +50,20 @@ RSpec.describe Category do
     end
   end
 
+  describe 'show_front_and_back' do
+    it 'shows cards front and back if card_list is not empty' do
+      @category.show_front_and_back
+      expect(@@last_message).to eq('java object oriented programming language')
+    end
+
+    it 'shows message if category is empty' do
+      category = Category.new('test2.txt')
+      category.show_front_and_back
+      expect(@@last_message).to eq('There are no any cards yet')
+      @category.delete_category('test2')
+    end
+  end
+
   describe 'remove_card' do
     it 'puts message if category is empty' do
       category = Category.new('test2.txt')

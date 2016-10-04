@@ -59,7 +59,7 @@ class Category
 
   def show_front
     if @card_list
-      @card_list.each { |card| show_message(card.front) { |m| m.color(:red) } }
+      @card_list.each { |card| show_message(card.front) { |m| m.color(:green) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
@@ -67,7 +67,7 @@ class Category
 
   def show_back
     if @card_list
-      @card_list.each { |card| show_message(card.back) { |m| m.color(:red) } }
+      @card_list.each { |card| show_message(card.back) { |m| m.color(:green) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
@@ -75,7 +75,7 @@ class Category
 
   def show_front_and_back
     if @card_list
-      @card_list.each { |card| puts card.front.upcase.color(:mintcream) + ' ' + card.back }
+      @card_list.each { |card| show_message(card.front + ' ' + card.back) { |m| m.color(:green) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
