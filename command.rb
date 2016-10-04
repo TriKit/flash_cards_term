@@ -90,7 +90,7 @@ class Command
     card = Card.new(front, back)
     @category.add_card(card)
     @category.write_to_file(@category.file_name)
-    puts @category.card_list.last.print_card
+    show_message("Card #{front} added") { |m| m.color(:green) }
   end
 
   def remove(card_front)

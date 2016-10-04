@@ -62,6 +62,7 @@ RSpec.describe Command do
     command.execute
     @category.read_file
     expect(@category.card_list.last.front).to eq('front')
+    expect(@@last_message).to eq('Card front added')
   end
 
   it 'removes card from category' do
