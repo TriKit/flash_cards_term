@@ -40,7 +40,7 @@ class Category
       @card_list.each do |card|
         if card.front == front
           @card_list.delete(card)
-          puts 'Card ' + front.to_s.upcase.color(:mintcream) + ' removed'
+          show_message("Card #{front} removed") { |m| m.color(:mintcream) }
         else
           show_message('There no such card') { |m| m.color(:red) }
         end
@@ -58,9 +58,8 @@ class Category
   end
 
   def show_front
-    p @cards_list
     if @card_list
-      @card_list.each { |card| puts card.front }
+      @card_list.each { |card| show_message(card.front) { |m| m.color(:red) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
@@ -70,7 +69,7 @@ class Category
     if @card_list
       @card_list.each { |card| puts card.back }
     else
-      puts 'There are no any cards yet'
+      show_message('There are no any cards yet') { |m| m.color(:red) }
     end
   end
 
@@ -78,7 +77,7 @@ class Category
     if @card_list
       @card_list.each { |card| puts card.front.upcase.color(:mintcream) + ' ' + card.back }
     else
-      puts 'There are no any cards yet'
+      show_message('There are no any cards yet') { |m| m.color(:red) }
     end
   end
 
