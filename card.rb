@@ -24,7 +24,7 @@ class Card
       @point = point
       show_message("set point #{point}") { |m| m.color(:mintcream) }
     else
-      show_message('Point should be 1, 2 or 3') { |m| m.color(:red) }
+      show_message('Point should be 1, 2 or 3. Try next time') { |m| m.color(:red) }
     end
   end
 end

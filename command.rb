@@ -18,7 +18,7 @@ class Command
   end
 
   def execute
-    commands = %w(create_category open delete_category create_card delete_card exit instruction front back all)
+    commands = %w(create_category open delete_category create_card delete_card exit instruction all point start)
     if commands.include?(@name)
       send(@name, *@args)
     else
@@ -50,24 +50,6 @@ class Command
     end
   end
 
-  # show front side of category cards
-  def front
-    if @category.file_name == 'default.txt'
-      show_message('You should open category file') { |m| m.color(:red) }
-    else
-      @category.show_front
-    end
-  end
-
-  # show back side of category cards
-  def back
-    if @category.file_name == 'default.txt'
-      show_message('You should open category file') { |m| m.color(:red) }
-    else
-      @category.show_back
-    end
-  end
-
   # show front and back side of category cards
   def all
     if @category.file_name == 'default.txt'
@@ -86,6 +68,10 @@ class Command
     end
   end
 
+  def start
+    @category.start
+  end
+
   # CARD
   # add new card to category
   def create_card(front, back)
@@ -98,15 +84,6 @@ class Command
   def delete_card(card_front)
     @category.remove_card(card_front)
     @category.write_to_file(@category.file_name)
-  end
-
-  def set_point(card, point)
-    @category.card_list.each do |c|
-      if c.front == card
-        c.set_point(point)
-        @category.write_to_file(@category.file_name)
-      end
-    end
   end
 
   # GLOBAL

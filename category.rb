@@ -55,20 +55,40 @@ class Category
     end
   end
 
-  def show_front
+  def start
     if @card_list
-      @card_list.each { |card| show_message(card.front) { |m| m.color(:mintcream) } }
+      tmp = @card_list.select { |card| card.point.to_i < 3 }
+       until tmp.empty?
+        tmp = tmp.select { |card| card.point.to_i < 3 }
+        tmp.each_index do |index|
+          show_front(tmp, index)
+          show_message('press ENTER to flip') { |m| m.color(:green) }
+          input = STDIN.getc.chr
+          if input == "\n"
+            show_back(tmp, index)
+            show_message('set point by 1, 2 or 3') { |m| m.color(:green) }
+            point = gets
+            change_point(tmp, point, index)
+          end
+        end
+      end
+      show_message('All cards memorized') { |m| m.color(:green) }
     else
-      show_message('There are no any cards yet') { |m| m.color(:red) }
+      show_message('There are nothing to memorize') { |m| m.color(:red) }
     end
   end
 
-  def show_back
-    if @card_list
-      @card_list.each { |card| show_message(card.back) { |m| m.color(:mintcream) } }
-    else
-      show_message('There are no any cards yet') { |m| m.color(:red) }
-    end
+  def change_point(arr, point, index)
+    arr[index].set_point(point)
+    write_to_file(@file_name)
+  end
+
+  def show_front(arr, index)
+    show_message(arr[index].front.upcase) { |m| m.color(:mintcream) }
+  end
+
+  def show_back(arr, index)
+    show_message(arr[index].back) { |m| m.color(:mintcream) }
   end
 
   def show_front_and_back
@@ -77,6 +97,18 @@ class Category
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
+  end
+
+  def front(id)
+    p @card_list[id].front
+  end
+
+  def back(id)
+    p @card_list[id].back
+  end
+
+  def point(id, point)
+    @card_list[id].set_point(point)
   end
 
   def instruction
