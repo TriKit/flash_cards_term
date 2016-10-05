@@ -74,4 +74,25 @@ RSpec.describe Category do
     @category.remove_card('html')
     @category.write_to_file('test.txt')
   end
+
+  it 'changes card point' do
+    @category.change_point(@category.card_list, 1, 0)
+    expect(@category.card_list.last.point).to eq(1)
+  end
+
+  describe 'start' do
+    it 'shows message if card list is empty' do
+      category = Category.new('test2.txt')
+      category.start('front')
+      expect(@@last_message).to eq('Category is empty')
+      @category.delete_category('test2')
+    end
+
+    it 'shows message if all cards points with 3' do
+      @category.change_point(@category.card_list, 3, 0)
+      @category.start('front')
+      expect(@@last_message).to eq('All cards memorized')
+      @category.change_point(@category.card_list, 1, 0)
+    end
+  end
 end

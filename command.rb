@@ -68,8 +68,8 @@ class Command
     end
   end
 
-  def start
-    @category.start
+  def start(side)
+    @category.start(side)
   end
 
   # CARD

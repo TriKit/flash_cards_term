@@ -55,17 +55,17 @@ class Category
     end
   end
 
-  def start
+  def start(side)
     if @card_list
       tmp = @card_list.select { |card| card.point.to_i < 3 }
        until tmp.empty?
         tmp = tmp.select { |card| card.point.to_i < 3 }
         tmp.each_index do |index|
-          show_front(tmp, index)
+          side == 'front' ? show_front(tmp, index) : show_back(tmp, index)
           show_message('press ENTER to flip') { |m| m.color(:green) }
           input = STDIN.getc.chr
           if input == "\n"
-            show_back(tmp, index)
+            side == 'front' ? show_back(tmp, index) : show_front(tmp, index)
             show_message('set point by 1, 2 or 3') { |m| m.color(:green) }
             point = gets
             change_point(tmp, point, index)
@@ -74,7 +74,7 @@ class Category
       end
       show_message('All cards memorized') { |m| m.color(:green) }
     else
-      show_message('There are nothing to memorize') { |m| m.color(:red) }
+      show_message('Category is empty') { |m| m.color(:red) }
     end
   end
 
@@ -99,18 +99,6 @@ class Category
     end
   end
 
-  def front(id)
-    p @card_list[id].front
-  end
-
-  def back(id)
-    p @card_list[id].back
-  end
-
-  def point(id, point)
-    @card_list[id].set_point(point)
-  end
-
   def instruction
     puts '---------INSTRUCTION--------'.color(:yellow)
     puts 'All command arguments should be separated by comma'.color(:yellow)
@@ -118,8 +106,7 @@ class Category
     puts 'delete, category'.color(:green) + ' - deletes category file'.color(:mintcream)
     puts 'open, category'.color(:green) + ' - change current cutegory'.color(:mintcream)
     puts 'all'.color(:green) + ' - shows front and back side of card in category'.color(:mintcream)
-    puts 'front'.color(:green) + ' - shows front side of card in category'.color(:mintcream)
-    puts 'back'.color(:green) + ' - shows back side of card in category'.color(:mintcream)
+    puts 'start, side'.color(:green) + ' - starts memorize of card. Choose front or back side'.color(:mintcream)
     puts 'add, front, back'.color(:green) + ' - creates card'.color(:mintcream)
     puts 'remove, front'.color(:green) + ' - removes card'.color(:mintcream)
     puts 'exit'.color(:green) + ' - exit'.color(:mintcream)
