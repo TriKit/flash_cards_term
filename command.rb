@@ -79,7 +79,7 @@ class Command
 
   def open(category)
     if Dir.entries('categories').include?("#{category}.txt")
-      create(category)
+      create_category(category)
       show_message("Current category is #{category}") { |m| m.color(:green) }
     else
       show_message('There no such category') { |m| m.color(:red) }

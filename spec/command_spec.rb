@@ -19,14 +19,14 @@ RSpec.describe Command do
   it 'creates category file' do
     command = Command.new(@category, 'create_category, test_category')
     command.execute
-    expect(Dir.entries('categories').include?("test_category.txt")).to be_truthy
+    expect(Dir.entries('categories').include?('test_category.txt')).to be_truthy
   end
 
   describe 'delete' do
     it 'deletes category file' do
       command = Command.new(@category, 'delete_category, test_category')
       command.execute
-      expect(Dir.entries('categories').include?("test_category.txt")).to be_falsy
+      expect(Dir.entries('categories').include?('test_category.txt')).to be_falsy
       expect(@@last_message).to eq('Category test_category deleted')
     end
 

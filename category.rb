@@ -57,7 +57,7 @@ class Category
 
   def show_front
     if @card_list
-      @card_list.each { |card| show_message(card.front) { |m| m.color(:green) } }
+      @card_list.each { |card| show_message(card.front) { |m| m.color(:mintcream) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
@@ -65,7 +65,7 @@ class Category
 
   def show_back
     if @card_list
-      @card_list.each { |card| show_message(card.back) { |m| m.color(:green) } }
+      @card_list.each { |card| show_message(card.back) { |m| m.color(:mintcream) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
@@ -73,29 +73,29 @@ class Category
 
   def show_front_and_back
     if @card_list
-      @card_list.each { |card| show_message(card.front + ' ' + card.back) { |m| m.color(:green) } }
+      @card_list.each { |card| show_message(card.front.upcase + ' - ' + card.back) { |m| m.color(:mintcream) } }
     else
       show_message('There are no any cards yet') { |m| m.color(:red) }
     end
   end
 
   def instruction
-    puts '---------INSTRUCTION--------'.color(:orange)
-    puts 'All command arguments should be separated by comma'.color(:orange)
-    puts 'create, category'.color(:blue) + ' - creates txt file for category'.color(:yellow)
-    puts 'delete, category'.color(:blue) + ' - deletes category file'.color(:yellow)
-    puts 'open, category'.color(:blue) + ' - change current cutegory'.color(:yellow)
-    puts 'all'.color(:blue) + ' - shows front and back side of card in category'.color(:yellow)
-    puts 'front'.color(:blue) + ' - shows front side of card in category'.color(:yellow)
-    puts 'back'.color(:blue) + ' - shows back side of card in category'.color(:yellow)
-    puts 'add, front, back'.color(:blue) + ' - creates card'.color(:yellow)
-    puts 'remove, front'.color(:blue) + ' - removes card'.color(:yellow)
-    puts 'exit'.color(:blue) + ' - exit'.color(:yellow)
-    puts 'instruction'.color(:blue) + ' - shows instruction'.color(:yellow)
+    puts '---------INSTRUCTION--------'.color(:yellow)
+    puts 'All command arguments should be separated by comma'.color(:yellow)
+    puts 'create, category'.color(:green) + ' - creates txt file for category'.color(:mintcream)
+    puts 'delete, category'.color(:green) + ' - deletes category file'.color(:mintcream)
+    puts 'open, category'.color(:green) + ' - change current cutegory'.color(:mintcream)
+    puts 'all'.color(:green) + ' - shows front and back side of card in category'.color(:mintcream)
+    puts 'front'.color(:green) + ' - shows front side of card in category'.color(:mintcream)
+    puts 'back'.color(:green) + ' - shows back side of card in category'.color(:mintcream)
+    puts 'add, front, back'.color(:green) + ' - creates card'.color(:mintcream)
+    puts 'remove, front'.color(:green) + ' - removes card'.color(:mintcream)
+    puts 'exit'.color(:green) + ' - exit'.color(:mintcream)
+    puts 'instruction'.color(:green) + ' - shows instruction'.color(:mintcream)
   end
 
   def show_categories
-    puts '---------CATEGORIES---------'.color(:orange)
+    puts '---------CATEGORIES---------'.color(:yellow)
     entries = Dir.entries('./categories')
     entries.delete('.')
     entries.delete('..')

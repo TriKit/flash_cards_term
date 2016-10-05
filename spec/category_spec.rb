@@ -53,7 +53,7 @@ RSpec.describe Category do
   describe 'show_front_and_back' do
     it 'shows cards front and back if card_list is not empty' do
       @category.show_front_and_back
-      expect(@@last_message).to eq('java object oriented programming language')
+      expect(@@last_message).to eq('JAVA - object oriented programming language')
     end
 
     it 'shows message if category is empty' do
