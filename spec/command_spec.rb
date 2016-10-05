@@ -68,4 +68,12 @@ RSpec.describe Command do
     @category.read_file
     expect(@category.card_list.last.front).to eq('java')
   end
+
+  it 'shows message if side is invalid in start method' do
+    command = Command.new(@category, 'open, test')
+    command.execute
+    command2 = Command.new(@category, 'start, invalid')
+    command2.execute
+    expect(@@last_message).to eq('Side should be front or back')
+  end
 end
