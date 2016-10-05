@@ -76,4 +76,13 @@ RSpec.describe Command do
     command2.execute
     expect(@@last_message).to eq('Side should be front or back')
   end
+
+  it 'sets point to 0 in all category cards' do
+    command = Command.new(@category, 'open, test')
+    command.execute
+    command2 = Command.new(@category, 'reset')
+    command2.execute
+    expect(@category.card_list.last.point).to eq(0)
+    expect(@@last_message).to eq('Reset cards points to zero')
+  end
 end

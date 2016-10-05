@@ -95,4 +95,10 @@ RSpec.describe Category do
       @category.change_point(@category.card_list, 1, 0)
     end
   end
+
+  it 'resets cards point to zero' do
+    @category.change_point(@category.card_list, 1, 0)
+    @category.reset
+    expect(@category.card_list.last.point).to eq(0)
+  end
 end

@@ -18,7 +18,7 @@ class Command
   end
 
   def execute
-    commands = %w(create_category open delete_category create_card delete_card exit instruction all point start)
+    commands = %w(create_category open delete_category create_card delete_card exit instruction all point start reset)
     if commands.include?(@name)
       send(@name, *@args)
     else
@@ -59,6 +59,7 @@ class Command
     end
   end
 
+  # open category file
   def open(category)
     if Dir.entries('categories').include?("#{category}.txt")
       create_category(category)
@@ -68,12 +69,19 @@ class Command
     end
   end
 
+  # start memorize cards in category
   def start(side)
     if side == 'front' || side == 'back'
       @category.start(side)
     else
-      show_message("Side should be front or back") { |m| m.color(:red) }
+      show_message('Side should be front or back') { |m| m.color(:red) }
     end
+  end
+
+  # reset cards point to zero in category
+  def reset
+    @category.reset
+    show_message('Reset cards points to zero') { |m| m.color(:green) }
   end
 
   # CARD
@@ -85,6 +93,7 @@ class Command
     show_message("Card #{front} added") { |m| m.color(:green) }
   end
 
+  # delete card by input car front
   def delete_card(card_front)
     @category.remove_card(card_front)
     @category.write_to_file(@category.file_name)

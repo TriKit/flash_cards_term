@@ -99,6 +99,13 @@ class Category
     end
   end
 
+  def reset
+    @card_list.map do |card|
+      card.point = 0
+    end
+    write_to_file(@file_name)
+  end
+
   def instruction
     puts '---------INSTRUCTION--------'.color(:yellow)
     puts 'All command arguments should be separated by comma'.color(:yellow)
