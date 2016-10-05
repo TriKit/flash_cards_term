@@ -22,32 +22,14 @@ RSpec.describe Category do
     expect(@category.card_list).to include(card)
   end
 
-  describe 'show_card_front' do
-    it 'shows cards front if card_list is not empty' do
-      @category.show_front
-      expect(@@last_message).to eq('java')
-    end
-
-    it 'shows message if category is empty' do
-      category = Category.new('test2.txt')
-      category.show_front
-      expect(@@last_message).to eq('There are no any cards yet')
-      @category.delete_category('test2')
-    end
+  it 'shows cards front if card_list is not empty' do
+    @category.show_front(@category.card_list, 0)
+    expect(@@last_message).to eq('JAVA')
   end
 
-  describe 'show_card_back' do
-    it 'shows cards back if card_list is not empty' do
-      @category.show_back
-      expect(@@last_message).to eq('object oriented programming language')
-    end
-
-    it 'shows message if category is empty' do
-      category = Category.new('test2.txt')
-      category.show_back
-      expect(@@last_message).to eq('There are no any cards yet')
-      @category.delete_category('test2')
-    end
+  it 'shows cards back if card_list is not empty' do
+    @category.show_back(@category.card_list, 0)
+    expect(@@last_message).to eq('object oriented programming language')
   end
 
   describe 'show_front_and_back' do

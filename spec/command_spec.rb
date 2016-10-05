@@ -45,24 +45,6 @@ RSpec.describe Command do
     end
   end
 
-  describe 'front' do
-    it 'shows message if current category is default' do
-      category = Category.new('default.txt')
-      command = Command.new(category, 'front')
-      command.execute
-      expect(@@last_message).to eq('You should open category file')
-    end
-  end
-
-  describe 'back' do
-    it 'shows message if current category is default' do
-      category = Category.new('default.txt')
-      command = Command.new(category, 'back')
-      command.execute
-      expect(@@last_message).to eq('You should open category file')
-    end
-  end
-
   describe 'all' do
     it 'shows message if current category is default' do
       category = Category.new('default.txt')
