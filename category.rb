@@ -57,19 +57,21 @@ class Category
 
   def start(side)
     if @card_list
+      # filter cards by point less 3
       tmp = @card_list.select { |card| card.point.to_i < 3 }
        until tmp.empty?
+        # infinite loop in array until all cards will have point equal 3
         tmp = tmp.select { |card| card.point.to_i < 3 }
         tmp.each_index do |index|
           side == 'front' ? show_front(tmp, index) : show_back(tmp, index)
-          show_message('press ENTER to flip') { |m| m.color(:green) }
-          input = STDIN.getc.chr
-          if input == "\n"
+          show_message('enter command: flip') { |m| m.color(:green) }
+          input = gets.rstrip
+          if input == 'flip'
             side == 'front' ? show_back(tmp, index) : show_front(tmp, index)
             show_message('set point by 1, 2 or 3') { |m| m.color(:green) }
-            point = gets
-            change_point(tmp, point, index)
           end
+          point = gets.rstrip
+          change_point(tmp, point, index)
         end
       end
       show_message('All cards memorized') { |m| m.color(:green) }
@@ -78,18 +80,54 @@ class Category
     end
   end
 
-  def change_point(arr, point, index)
-    arr[index].set_point(point)
-    write_to_file(@file_name)
+  def flip
+    flip_method = @side == 'front' ? 'back' : 'front'
+    @card_list[@current_card_index].send("show_#{flip_method}")
   end
 
-  def show_front(arr, index)
-    show_message(arr[index].front.upcase) { |m| m.color(:mintcream) }
+  def set_side(side)
+    @side = side
   end
 
-  def show_back(arr, index)
-    show_message(arr[index].back) { |m| m.color(:mintcream) }
+  def next
+    if @current_card_index.nil? || @current_card_index == @cl.length - 1
+      @cl = @card_list.select { |card| card.point.to_i < 3 }
+      @current_card_index = 0
+      p @cl.map(&:point)
+      p @card_list.map(&:point)
+    else
+      @current_card_index += 1
+    end
+    if @cl.empty?
+      show_message('All cards memorized') { |m| m.color(:green) }
+      return
+    end
+    @cl[@current_card_index].send("show_#{@side}")
   end
+
+  def set_point(point)
+    @card_list[@current_card_index].set_point(point)
+  end
+
+  # def change_point(arr, point, index)
+  #   arr[index].set_point(point)
+  #   write_to_file(@file_name)
+  # end
+
+  # def show_front(arr, index)
+  #   puts '----------------------------------------'
+  #   show_message(arr[index].front.upcase) { |m| m.color(:mintcream) }
+  #   puts '----------------------------------------'
+  # end
+  #
+  # def show_back(arr, index)
+  #   l = arr[index].back.length
+  #   l.times { print '-' }
+  #   print "\n"
+  #   show_message(arr[index].back) { |m| m.color(:mintcream) }
+  #   l.times { print '-' }
+  #   print "\n"
+  # end
 
   def show_front_and_back
     if @card_list

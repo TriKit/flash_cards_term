@@ -27,4 +27,20 @@ class Card
       show_message('Point should be 1, 2 or 3. Try next time') { |m| m.color(:red) }
     end
   end
+
+  def show_front
+    puts '----------------------------------------'
+    show_message(@front.upcase) { |m| m.color(:mintcream) }
+    puts '----------------------------------------'
+  end
+
+  def show_back
+    l = @back.length
+    l.times { print '-' }
+    print "\n"
+    show_message(@back) { |m| m.color(:mintcream) }
+    l.times { print '-' }
+    print "\n"
+  end
+
 end

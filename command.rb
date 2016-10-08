@@ -18,11 +18,14 @@ class Command
   end
 
   def execute
-    commands = %w(create_category open delete_category create_card delete_card exit instruction all point start reset)
-    if commands.include?(@name)
+    begin
       send(@name, *@args)
-    else
-      show_message('Invalid command. Please try again') { |m| m.color(:red) }
+    rescue NoMethodError => e
+      if e.to_s.include?('for #<Command')
+        show_message('Invalid command. Please try again') { |m| m.color(:red) }
+      else
+        raise e
+      end
     end
   end
 
@@ -63,7 +66,7 @@ class Command
   def open(category)
     if Dir.entries('categories').include?("#{category}.txt")
       create_category(category)
-      show_message("Current category is #{category}") { |m| m.color(:green) }
+      show_message("Current category is #{category.upcase}") { |m| m.color(:green) }
     else
       show_message('There no such category') { |m| m.color(:red) }
     end
@@ -76,6 +79,22 @@ class Command
     else
       show_message('Side should be front or back') { |m| m.color(:red) }
     end
+  end
+
+  def next
+    @category.next
+  end
+
+  def side(side)
+    @category.set_side(side)
+  end
+
+  def flip
+    @category.flip
+  end
+
+  def point(point)
+    @category.set_point(point)
   end
 
   # reset cards point to zero in category
