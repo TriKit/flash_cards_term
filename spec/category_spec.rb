@@ -4,7 +4,7 @@ require_relative '../card'
 
 RSpec.describe Category do
   before(:each) do
-    # suppress_log_output
+    suppress_log_output
     @card = Card.new('java', 'object oriented programming language')
     @category = Category.new('test.txt')
     @category.add_card(@card)
@@ -20,16 +20,6 @@ RSpec.describe Category do
     card = Card.new('html', 'the standard markup language for creating web pages and web applications')
     @category.add_card(card)
     expect(@category.card_list).to include(card)
-  end
-
-  it 'shows cards front if card_list is not empty' do
-    @category.show_front(@category.card_list, 0)
-    expect(@@last_message).to eq('JAVA')
-  end
-
-  it 'shows cards back if card_list is not empty' do
-    @category.show_back(@category.card_list, 0)
-    expect(@@last_message).to eq('object oriented programming language')
   end
 
   describe 'show_front_and_back' do
@@ -75,30 +65,18 @@ RSpec.describe Category do
     @category.write_to_file('test.txt')
   end
 
-  it 'changes card point' do
-    @category.change_point(@category.card_list, 1, 0)
-    expect(@category.card_list.last.point).to eq(1)
-  end
-
-  describe 'start' do
-    it 'shows message if card list is empty' do
-      category = Category.new('test2.txt')
-      category.start('front')
-      expect(@@last_message).to eq('Category is empty')
-      @category.delete_category('test2')
-    end
-
-    it 'shows message if all cards points with 3' do
-      @category.change_point(@category.card_list, 3, 0)
-      @category.start('front')
-      expect(@@last_message).to eq('All cards memorized')
-      @category.change_point(@category.card_list, 1, 0)
-    end
-  end
-
   it 'resets cards point to zero' do
-    @category.change_point(@category.card_list, 1, 0)
+    @category.card_list[0].set_point(1)
     @category.reset
     expect(@category.card_list.last.point).to eq(0)
+  end
+
+  it 'sets side' do
+    expect(@category.set_side('back')).to eq('back')
+  end
+
+  it 'sets point to card' do
+    @category.card_list[0].set_point(1)
+    expect(@category.card_list[0].point).to eq(1)
   end
 end
