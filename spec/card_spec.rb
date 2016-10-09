@@ -26,4 +26,14 @@ RSpec.describe Card do
       expect(@card.point).not_to eq(4)
     end
   end
+
+  it 'shows front side' do
+    @card.show_front
+    expect(@@last_message).to eq('RUBY')
+  end
+
+  it 'shows back side' do
+    @card.show_back
+    expect(@@last_message).to eq('dynamic programming language')
+  end
 end
