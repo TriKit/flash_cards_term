@@ -72,15 +72,6 @@ class Command
     end
   end
 
-  # start memorize cards in category
-  def start(side)
-    if side == 'front' || side == 'back'
-      @category.start(side)
-    else
-      show_message('Side should be front or back') { |m| m.color(:red) }
-    end
-  end
-
   def next
     @category.next
   end

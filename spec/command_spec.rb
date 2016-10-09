@@ -69,20 +69,36 @@ RSpec.describe Command do
     expect(@category.card_list.last.front).to eq('java')
   end
 
-  it 'shows message if side is invalid in start method' do
-    command = Command.new(@category, 'open, test')
-    command.execute
-    command2 = Command.new(@category, 'start, invalid')
-    command2.execute
-    expect(@@last_message).to eq('Side should be front or back')
-  end
-
-  it 'sets point to 0 in all category cards' do
+  it 'resets point to 0 in all category cards' do
     command = Command.new(@category, 'open, test')
     command.execute
     command2 = Command.new(@category, 'reset')
     command2.execute
     expect(@category.card_list.last.point).to eq(0)
     expect(@@last_message).to eq('Reset cards points to zero')
+  end
+
+  it 'sets point to card' do
+    command = Command.new(@category, 'open, test')
+    command.execute
+    command2 = Command.new(@category, 'side, front')
+    command2.execute
+    command3 = Command.new(@category, 'next')
+    command3.execute
+    command4 = Command.new(@category, 'point, 1')
+    command4.execute
+    expect(@category.card_list.last.point).to eq(1)
+  end
+
+  it 'shows back side of card' do
+    command = Command.new(@category, 'open, test')
+    command.execute
+    command2 = Command.new(@category, 'side, front')
+    command2.execute
+    command3 = Command.new(@category, 'next')
+    command3.execute
+    command4 = Command.new(@category, 'flip')
+    command4.execute
+    expect(@@last_message).to eq('object oriented programming language')
   end
 end
