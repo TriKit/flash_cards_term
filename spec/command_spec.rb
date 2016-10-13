@@ -88,6 +88,8 @@ RSpec.describe Command do
     command4 = Command.new(@category, 'point, 1')
     command4.execute
     expect(@category.card_list.last.point).to eq(1)
+    command5 = Command.new(@category, 'reset')
+    command5.execute
   end
 
   it 'shows back side of card' do

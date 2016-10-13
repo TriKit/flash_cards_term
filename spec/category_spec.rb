@@ -79,4 +79,14 @@ RSpec.describe Category do
     @category.card_list[0].set_point(1)
     expect(@category.card_list[0].point).to eq(1)
   end
+
+  describe 'flip' do
+    it 'shows back side if @side equal front' do
+
+    end
+
+    it 'shows front side if @side equal back' do
+      
+    end
+  end
 end

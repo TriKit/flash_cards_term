@@ -55,31 +55,6 @@ class Category
     end
   end
 
-  # def start(side)
-  #   if @card_list
-  #     # filter cards by point less 3
-  #     tmp = @card_list.select { |card| card.point.to_i < 3 }
-  #      until tmp.empty?
-  #       # infinite loop in array until all cards will have point equal 3
-  #       tmp = tmp.select { |card| card.point.to_i < 3 }
-  #       tmp.each_index do |index|
-  #         side == 'front' ? show_front(tmp, index) : show_back(tmp, index)
-  #         show_message('enter command: flip') { |m| m.color(:green) }
-  #         input = gets.rstrip
-  #         if input == 'flip'
-  #           side == 'front' ? show_back(tmp, index) : show_front(tmp, index)
-  #           show_message('set point by 1, 2 or 3') { |m| m.color(:green) }
-  #         end
-  #         point = gets.rstrip
-  #         change_point(tmp, point, index)
-  #       end
-  #     end
-  #     show_message('All cards memorized') { |m| m.color(:green) }
-  #   else
-  #     show_message('Category is empty') { |m| m.color(:red) }
-  #   end
-  # end
-
   def flip
     flip_method = @side == 'front' ? 'back' : 'front'
     @card_list[@current_card_index].send("show_#{flip_method}")
@@ -105,6 +80,7 @@ class Category
 
   def set_point(point)
     @card_list[@current_card_index].set_point(point)
+    write_to_file(@file_name)
   end
 
   def show_front_and_back
