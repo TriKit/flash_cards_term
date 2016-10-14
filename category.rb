@@ -101,13 +101,13 @@ class Category
   def instruction
     puts '---------INSTRUCTION--------'.color(:yellow)
     puts 'All command arguments should be separated by comma'.color(:yellow)
-    puts 'create, category'.color(:green) + ' - creates txt file for category'.color(:mintcream)
-    puts 'delete, category'.color(:green) + ' - deletes category file'.color(:mintcream)
+    puts 'create_category, category'.color(:green) + ' - creates txt file for category'.color(:mintcream)
+    puts 'delete_category, category'.color(:green) + ' - deletes category file'.color(:mintcream)
     puts 'open, category'.color(:green) + ' - change current cutegory'.color(:mintcream)
     puts 'all'.color(:green) + ' - shows front and back side of card in category'.color(:mintcream)
-    puts 'start, side'.color(:green) + ' - starts memorize of card. Choose front or back side'.color(:mintcream)
-    puts 'add, front, back'.color(:green) + ' - creates card'.color(:mintcream)
-    puts 'remove, front'.color(:green) + ' - removes card'.color(:mintcream)
+    puts 'side, front or back'.color(:green) + ' - Choose front or back side'.color(:mintcream)
+    puts 'create_card, front, back'.color(:green) + ' - creates card'.color(:mintcream)
+    puts 'delete_card, front'.color(:green) + ' - removes card'.color(:mintcream)
     puts 'exit'.color(:green) + ' - exit'.color(:mintcream)
     puts 'instruction'.color(:green) + ' - shows instruction'.color(:mintcream)
   end
