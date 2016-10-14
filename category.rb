@@ -10,9 +10,7 @@ class Category
   end
 
   def create_category_file
-    unless File.exist?("./categories/#{@file_name}")
-      File.new("./categories/#{@file_name}", 'w')
-    end
+    File.new("./categories/#{@file_name}", 'w') unless File.exist?("./categories/#{@file_name}")
   end
 
   def delete_category(file_name)
@@ -60,26 +58,40 @@ class Category
     @card_list[@current_card_index].send("show_#{flip_method}")
   end
 
-  def set_side(side)
-    @side = side
-  end
-
-  def next
-    if @current_card_index.nil? || @current_card_index == @cl.length - 1
-      @cl = @card_list.select { |card| card.point.to_i < 3 }
-      @current_card_index = 0
+  def opposite_side(side)
+    if side == 'front'
+      'back'
     else
-      @current_card_index += 1
+      'front'
     end
-    if @cl.empty?
-      show_message('All cards memorized') { |m| m.color(:green) }
-      return
-    end
-    @cl[@current_card_index].send("show_#{@side}")
   end
 
-  def set_point(point)
-    @card_list[@current_card_index].set_point(point)
+  def start(side)
+    @side = side
+    if @card_list
+      tmp = @card_list.select { |card| card.point.to_i < 3 }
+      until tmp.empty?
+        tmp = tmp.select { |card| card.point.to_i < 3 }
+        tmp.each_index do |i|
+          tmp[i].send("show_#{@side}")
+          show_message('press ENTER to flip') { |m| m.color(:orange) }
+          input = STDIN.getc.chr
+          if input == "\n"
+            tmp[i].send("show_#{opposite_side(side)}")
+            show_message('set point by 1, 2 or 3') { |m| m.color(:orange) }
+            point = gets.chomp
+            point(tmp, i, point)
+          end
+        end
+      end
+      show_message('Congratulations') { |m| m.color(:green) }
+    else
+      show_message('There are no any cards yet') { |m| m.color(:red) }
+    end
+  end
+
+  def point(array, index, point)
+    array[index].change_point(point)
     write_to_file(@file_name)
   end
 
@@ -101,12 +113,11 @@ class Category
   def instruction
     puts '---------INSTRUCTION--------'.color(:yellow)
     puts 'All command arguments should be separated by comma'.color(:yellow)
-    puts 'create_category, category'.color(:green) + ' - creates txt file for category'.color(:mintcream)
+    puts 'create, category or card(front, back)'.color(:green) + ' - creates txt file for category or card'.color(:mintcream)
     puts 'delete_category, category'.color(:green) + ' - deletes category file'.color(:mintcream)
     puts 'open, category'.color(:green) + ' - change current cutegory'.color(:mintcream)
     puts 'all'.color(:green) + ' - shows front and back side of card in category'.color(:mintcream)
-    puts 'side, front or back'.color(:green) + ' - Choose front or back side'.color(:mintcream)
-    puts 'create_card, front, back'.color(:green) + ' - creates card'.color(:mintcream)
+    puts 'start, side'.color(:green) + ' - starts showing cards. Side is optional. Default side is front'.color(:mintcream)
     puts 'delete_card, front'.color(:green) + ' - removes card'.color(:mintcream)
     puts 'exit'.color(:green) + ' - exit'.color(:mintcream)
     puts 'instruction'.color(:green) + ' - shows instruction'.color(:mintcream)

@@ -18,13 +18,13 @@ class Card
     "front: #{@front}, back: #{@back}"
   end
 
-  def set_point(point)
+  def change_point(point)
     point = point.to_i
     if (0..3).cover?(point)
       @point = point
       show_message("set point #{point}") { |m| m.color(:mintcream) }
     else
-      show_message('Point should be 1, 2 or 3. Try next time') { |m| m.color(:red) }
+      show_message('Point must be 1, 2 or 3.') { |m| m.color(:red) }
     end
   end
 
@@ -42,5 +42,4 @@ class Card
     l.times { print '-' }
     print "\n"
   end
-
 end
