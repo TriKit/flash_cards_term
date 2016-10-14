@@ -21,7 +21,11 @@ class Command
     begin
       send(@name, *@args)
     rescue NoMethodError => e
-      e.to_s.include?('for #<Command') ? show_message('Invalid command. Please try again') { |m| m.color(:red) } : raise e
+      if e.to_s.include?('for #<Command')
+        show_message('Invalid command. Please try again') { |m| m.color(:red) }
+      else
+        raise e
+      end
     rescue ArgumentError => e
       # raise e
       show_message('Wrong number of arguments. Try again') { |m| m.color(:red) }

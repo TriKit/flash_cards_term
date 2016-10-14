@@ -20,7 +20,7 @@ class Card
 
   def change_point(point)
     point = point.to_i
-    if (0..3).cover?(point)
+    if (0..2).cover?(point)
       @point = point
       show_message("set point #{point}") { |m| m.color(:mintcream) }
     else

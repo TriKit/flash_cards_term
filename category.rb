@@ -69,16 +69,16 @@ class Category
   def start(side)
     @side = side
     if @card_list
-      tmp = @card_list.select { |card| card.point.to_i < 3 }
+      tmp = @card_list.select { |card| card.point.to_i < 2 }
       until tmp.empty?
-        tmp = tmp.select { |card| card.point.to_i < 3 }
+        tmp = tmp.select { |card| card.point.to_i < 2 }
         tmp.each_index do |i|
           tmp[i].send("show_#{@side}")
           show_message('press ENTER to flip') { |m| m.color(:orange) }
           input = STDIN.getc.chr
           if input == "\n"
             tmp[i].send("show_#{opposite_side(side)}")
-            show_message('set point by 1, 2 or 3') { |m| m.color(:orange) }
+            show_message('set point by 1, 2') { |m| m.color(:orange) }
             point = gets.chomp
             point(tmp, i, point)
           end
