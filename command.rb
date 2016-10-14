@@ -26,6 +26,8 @@ class Command
       else
         raise e
       end
+    rescue ArgumentError => e
+      show_message('Wrong number of arguments. Try again') { |m| m.color(:red) }
     end
   end
 
@@ -37,6 +39,14 @@ class Command
 
   # CATEGORY
   # create new category
+  def create(*args)
+    if args[0] == 'category'
+      create_category(args[1])
+    elsif args[0] == 'card'
+      create_card(*args[1..args.length-1])
+    end
+  end
+
   def create_category(category)
     @category = Category.new("#{category}.txt")
     @category.read_file
@@ -97,6 +107,7 @@ class Command
   # CARD
   # add new card to category
   def create_card(front, back)
+    # need to fix wrong number of arguments
     card = Card.new(front, back)
     @category.add_card(card)
     @category.write_to_file(@category.file_name)
